@@ -70,7 +70,6 @@ def get_corpus():
 
 if __name__ == "__main__":
 
-    # corpus_name = "realdonaldtrump_readable_corpus.txt"
     corpus_name = get_corpus()
     markov_model = get_model(corpus_name)
 
