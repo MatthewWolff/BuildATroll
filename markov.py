@@ -71,4 +71,4 @@ def get_corpus():
 if __name__ == "__main__":
     markov_model = get_model(get_corpus())
     for i in range(10):
-        print "The Russians say:", markov_model.make_short_sentence(140), " "  # characters max
+        print "The Russians say:", markov_model.make_short_sentence(140)  # characters max
