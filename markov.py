@@ -62,7 +62,6 @@ def get_corpus():
         with open(bot_corpus, "wb") as o:
             o.write(corpus)
     else:
-        # Get raw text as string.
         with open(bot_corpus) as f:
             corpus = f.read()
     return bot_corpus  # lol return the file name for now
@@ -70,7 +69,6 @@ def get_corpus():
 
 if __name__ == "__main__":
 
-    # corpus_name = "realdonaldtrump_readable_corpus.txt"
     corpus_name = get_corpus()
     markov_model = get_model(corpus_name)
 
