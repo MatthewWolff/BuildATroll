@@ -39,14 +39,14 @@ def clean(string):
 def get_corpus():
     bot_corpus = "bot_corpus.txt"
     if not path.exists(bot_corpus):  # if corpus doesn't exist, make it
+
         # russian trolls, with an ID set for constant time user access
         users = pd.read_csv("users.csv")
         users.set_index(keys="id", inplace=True, drop=False)
         tweets = pd.read_csv("tweets.csv")
 
         # sort users by their ratio of favorites per follower
-        users["favorites_per_follower"] = users.apply(lambda row: row.favourites_count / (row.followers_count + 1),
-                                                      axis=1)
+        users["favorites_per_follower"] = users.apply(lambda r: r.favourites_count / (r.followers_count + 1), axis=1)
         users.sort_values(by=["favorites_per_follower"], ascending=False, inplace=True)
 
         # create a column of empty lists to collect tweets in, then make a list of dictionaries from users
