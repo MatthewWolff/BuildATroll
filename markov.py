@@ -12,18 +12,19 @@ import pandas as pd
 def get_model(corpus):
     file_id = corpus.split("_")[0]
     model_path = file_id + "_markov_model.json"
+
     if not path.exists(model_path):  # if model doesn't exist, make it
-        # Get raw text as string.
+        # Get raw text as string
         with open(corpus) as f:
             text = f.read()
 
-        # Build the model.
+        # Build the model
         text_model = markovify.Text(text)
         model_json = text_model.to_json()
-        with open(model_path, "wb") as o:
+        with open(model_path, "wb") as o:  # store
             json.dump(model_json, o)
     else:
-        with open(model_path, "rb") as f:
+        with open(model_path, "rb") as f:  # retrieve
             text_model = markovify.Text.from_json(json.load(f))
     return text_model
 
@@ -68,9 +69,6 @@ def get_corpus():
 
 
 if __name__ == "__main__":
-
-    corpus_name = get_corpus()
-    markov_model = get_model(corpus_name)
-
+    markov_model = get_model(get_corpus())
     for i in range(10):
-        print "The Russians say:", markov_model.make_short_sentence(280)  # characters
+        print "The Russians say:", markov_model.make_short_sentence(280)  # characters max
