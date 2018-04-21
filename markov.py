@@ -32,7 +32,7 @@ def get_model(corpus):
 def clean(string):
     tw = string
     tw = re.sub("(https?://.*)|(www\..*)|(t\.co.*)|(amzn\.to.*)( |$)|", "", tw)  # remove links + newlines
-    tw = re.sub("\n", "", tw)
+    tw = re.sub("\n", " ", tw)
     return tw
 
 
