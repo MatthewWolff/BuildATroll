@@ -10,8 +10,8 @@ import pandas as pd
 
 
 def get_model(corpus):
-    file_id = corpus.split("_")[0]
-    model_path = file_id + "_markov_model.json"
+    file_id = re.findall("/(.+?)_", corpus)[0]
+    model_path = "models/" + file_id + "_markov_model.json"
 
     if not path.exists(model_path):  # if model doesn't exist, make it
         # Get raw text as string
@@ -37,13 +37,13 @@ def clean(string):
 
 
 def get_corpus():
-    bot_corpus = "bot_corpus.txt"
+    bot_corpus = "corpora/bot_corpus.txt"  # lol hardcoded
     if not path.exists(bot_corpus):  # if corpus doesn't exist, make it
 
         # russian trolls, with an ID set for constant time user access
-        users = pd.read_csv("users.csv")
+        users = pd.read_csv("raw_data/users.csv")
         users.set_index(keys="id", inplace=True, drop=False)
-        tweets = pd.read_csv("tweets.csv")
+        tweets = pd.read_csv("raw_data/tweets.csv")
 
         # sort users by their ratio of favorites per follower
         users["favorites_per_follower"] = users.apply(lambda r: r.favourites_count / (r.followers_count + 1), axis=1)
@@ -71,4 +71,4 @@ def get_corpus():
 if __name__ == "__main__":
     markov_model = get_model(get_corpus())
     for i in range(10):
-        print "The Russians say:", markov_model.make_short_sentence(280)  # characters max
+        print "The Russians say:", markov_model.make_short_sentence(140), " "  # characters max
